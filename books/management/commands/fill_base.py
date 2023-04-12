@@ -3,24 +3,22 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from books.models import Author, Publisher, Book, Store
 
+
 class Command(BaseCommand):
     help = 'Populates the database'
 
     def handle(self, *args, **options):
         fake = Faker()
 
-
         publishers = []
         for publisher in range(100):
             publisher = Publisher.objects.create(name=fake.company())
             publishers.append(publisher)
 
-
         authors = []
         for author in range(500):
             author = Author.objects.create(name=fake.name(), age=random.randint(18, 80))
             authors.append(author)
-
 
         books = []
         for book in range(1000):
@@ -34,7 +32,6 @@ class Command(BaseCommand):
             )
             book.authors.add(*random.sample(authors, random.randint(1, 3)))
             books.append(book)
-
 
         stores = []
         for store in range(10):

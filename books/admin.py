@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Author, Book, Publisher, Store
 
+
 @admin.register(Author)
 class Author(admin.ModelAdmin):
     list_display = ('name', 'age',)

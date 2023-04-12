@@ -6,4 +6,5 @@ app_name = 'books'
 urlpatterns = [
     path('', views.books, name='Books'),
     path('stores/', views.stores, name='Stores'),
+    path('authors/', views.authors, name='Authors'),
 ]
