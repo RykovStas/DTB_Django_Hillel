@@ -5,12 +5,20 @@
     <title>Books</title>
 </head>
 <body>
-
+    <table>
+        <th>Name</th>
+        <th>Price</th>
+        <th>RATING</th>
+        <th>PUBLISHER</th>
     {% for book in books %}
-        <p>
-            {{ book.name }}, publisher: {{ book.publisher.name }}, rating: {{ book.rating }} price {{ book.price }}
-        </p>
-{% endfor %}
+        <tr>
+            <td>{{ book.name }}</td>
+            <td>{{ book.price }}</td>
+            <td>{{ book.rating }}</td>
+            <td>{{ book.publisher }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </body>
 </html>
