@@ -58,3 +58,18 @@ def quotes_parser():
             to_email = ['toemail@example.com', ]
             send_mail.delay(subject=subject, message=message, from_email=from_email, to_email=to_email)
             break
+
+
+@shared_task
+def send_contact_email(data):
+    name = data['name']
+    email = data['email']
+    message = data['message']
+
+    send_mail(
+        'Contact Form Submission',
+        f'Name: {name}\nEmail: {email}\nMessage: {message}',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
+    )

@@ -1,11 +1,12 @@
-
+from django.http import JsonResponse
+from django.shortcuts import render
 from datetime import timedelta
 
 from django.shortcuts import redirect, render
 from django.utils import timezone
 
-from .forms import ReminderForm
-from .tasks import send_mail as celery_send_mail
+from .forms import ReminderForm, ContactForm
+from .tasks import send_mail as celery_send_mail, send_contact_email
 
 
 def reminder(request):
@@ -35,3 +36,16 @@ def reminder(request):
 
 def success_page(request):
     return render(request, 'celery_example/success_page.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            send_contact_email.delay(form.cleaned_data)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'errors': form.errors})
+    else:
+        form = ContactForm()
+        return render(request, 'contact.html', {'form': form})
